@@ -5,16 +5,16 @@ Ruan 1 0
 Paulo 0 1
 Tamila 0 0
 Juliana 0 0
-12
-Algoritmos 100 1 0
-PreCalculo 67 1 0
-CalculoI 100 2 1 1
-CalculoII 67 3 1 1
-Algebra 67 5 1 3
-ATAL 67 7 1 6
-EDA 67 2 1 0
-POO 100 3 1 0
-OAC 67 3 1 10
-SDI 67 1 0 9 
-SDII 67 2 1
-Embedded 67 9 1 8
+10
+Algoritmos 100 40 1 0
+PreCalculo 67 40 1 0
+CalculoI 100 35 2 1 1
+CalculoII 67 20 3 1 1
+Algebra 67 7 5 1 3
+ATAL 67 20 7 1 6
+EDA 67 35 2 1 0
+POO 100 28 3 1 0
+OAC 67 25 3 1 10
+SDI 67 40 1 0 9 
+SDII 67 38 2 1
+SE 67 5 9 1 8

@@ -20,14 +20,14 @@ Mat     Nome      Gestor    Cordenador
 
 
 D = 10
-Mat     Disc        NumAlunos   Perido       QPre          prerequisitos
-1       Nome        Alunos      P             K           {k0, ... kn-1}  
-2       Nome        Alunos      P             K           {k0, ... kn-1}  
-3       Nome        Alunos      P             K           {k0, ... kn-1}  
-4       Nome        Alunos      P             K           {k0, ... kn-1}  
-5       Nome        Alunos      P             K           {k0, ... kn-1}  
-6       Nome        Alunos      P             K           {k0, ... kn-1}  
-7       Nome        Alunos      P             K           {k0, ... kn-1}  
-8       Nome        Alunos      P             K           {k0, ... kn-1}  
-9       Nome        Alunos      P             K           {k0, ... kn-1}  
-10      Nome        Alunos      P             K           {k0, ... kn-1}  
+Mat     Disc    CH    NumAlunos   Perido       QPre          prerequisitos
+1       Nome    ch    Alunos      P             K           {k0, ... kn-1}  
+2       Nome    ch    Alunos      P             K           {k0, ... kn-1}  
+3       Nome    ch    Alunos      P             K           {k0, ... kn-1}  
+4       Nome    ch    Alunos      P             K           {k0, ... kn-1}  
+5       Nome    ch    Alunos      P             K           {k0, ... kn-1}  
+6       Nome    ch    Alunos      P             K           {k0, ... kn-1}  
+7       Nome    ch    Alunos      P             K           {k0, ... kn-1}  
+8       Nome    ch    Alunos      P             K           {k0, ... kn-1}  
+9       Nome    ch    Alunos      P             K           {k0, ... kn-1}  
+10      Nome    ch    Alunos      P             K           {k0, ... kn-1}  
