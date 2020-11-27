@@ -3,66 +3,85 @@
 #include <queue>
 #include <algorithm>
 
-using namespace std; 
+struct Disciplina { 
 
+    private:
+        int codigo; 
+        int cargaHoraria; 
+        int creditos; 
+        int periodo; 
+        int numAlunos; 
+        int numPrerequisitos;
+        std::string nome; 
+        std::vector<int> prerequisitos; 
 
-bool compare( const Disciplina &a, const Disciplina &b ) {
-    return a.nivelDificuldade < a.nivelDificuldade; 
-}
+    public:
+        int nivelDificuldade; 
+        Disciplina(std::string _nome, int _codigo, int _numAlunos, int _cargaHoraria, int _periodo, int _numPrerequisitos):  
+            nome(_nome), 
+            codigo(_codigo),
+            cargaHoraria(_cargaHoraria), 
+            periodo(_periodo), 
+            prerequisitos(_numPrerequisitos)
+        {};  
 
-int main () {
-    
-    // N - Quantidade de Professores
-    // D - Quantidade de Disciplinas
-    // K - Quantidade de Prerequisitos
+        Disciplina(std::string _nome, int _codigo, int _numAlunos, int _cargaHoraria, int _periodo):  
+            nome(_nome), 
+            codigo(_codigo),
+            cargaHoraria(_cargaHoraria), 
+            periodo(_periodo)
+        {}; 
 
-    int N, D, K; 
-    int CHG, CHC, CHM; // CHG - Carga Horaria Gestão
-                       // CHC - Carga Horária Coordenação
-                       // CHM - Carga Horária Máxima
-
-    cin >> CHM >> CHC >> CHG; 
-
-    cin >> N;  
-
-    std::vector<Professor*> professores; 
-    std::vector<Disciplina*> disciplinas; 
-
-    string nome; 
-    int g, c, cha; 
-
-    for (int i = 1; i <= N; i++) { 
-        cin >> nome >> g >> c;
-        
-        // Verifica a carga horaria máxima de aulas de cada professor;  
-        if (g == 1) cha = CHM - CHG;  
-        else if ( c == 1 ) cha = CHM - CHC;
-        else cha = CHM; 
-        professores.push_back( new Professor(nome, i, c, g, cha) ); 
-        
-    }
-
-
-    cin >> D; 
-    int alunos, ch, sem, p, pi; 
-    for (int i = 1; i <= D; i++) {
-        cin >> nome >> ch >> alunos >> sem >> p; 
-        disciplinas.push_back(new Disciplina(nome, i, alunos, ch, sem, p));
-        for (int j = 0; j < p; j++) {
-            cin >> pi; // pre
-            disciplinas[i-1]->addPrerequisitos(pi); 
+        std::string getNome() {
+            return this->nome; 
         }
-    }
+        int getCodigo() {
+            return this->codigo; 
+        }
 
-    /* for (int i = 0; i < professores.size(); i++)
-        cout << professores[i]->getNome() << " " << professores[i]->getCargaHorariaMax() << "\n";   */
+        void addPrerequisitos(int p){
+            this->prerequisitos.push_back(p); 
+        } 
+};
+struct Professor {
 
-    /* for (int i = 0; i < D; i++) {
-        cout << disciplinas[i]->getCodigo() << " " << disciplinas[i]->getNome() << "\n"; 
-    } */
+    private: 
+        int matricula; 
+        int cargaHorariaAulas; 
+        int cargaHorariaMax; 
+        bool gestor; 
+        bool coordenador; 
+        std::string nome; 
 
-    sort(disciplinas.begin(), disciplinas.end()); 
-    for (int i = 0; i < disciplinas.size(); i++) {
-        cout << disciplinas[i]->getDificuldade() << " " << disciplinas[i]->getNome() << endl; 
-    }
-}
+
+    public:
+        
+
+        Professor() {
+            this->cargaHorariaAulas = 0; 
+            this->cargaHorariaMax = 16; 
+            this->gestor = false; 
+            this->coordenador = false; 
+        }
+
+        Professor(std::string nome, int matricula,  bool cordenador, bool gestor, int cargaHorariaMax){
+            this->nome = nome; 
+            this->cargaHorariaAulas = 0; 
+            this->matricula = matricula; 
+            this->cargaHorariaMax = cargaHorariaMax; 
+            this->coordenador = cordenador == 1? true: false ;
+            this->gestor = gestor == 1? true : false; 
+            
+        }
+
+
+        std::string getNome() {
+            return this->nome; 
+        }
+
+        int getCargaHorariaMax() {
+            return this->cargaHorariaMax; 
+        }
+
+
+}; 
