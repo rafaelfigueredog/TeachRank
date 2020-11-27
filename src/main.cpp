@@ -1,15 +1,14 @@
 #include <iostream>
 #include <vector>
-#include "professor.h"
-#include "disciplina.h"
 #include <queue>
 #include <algorithm>
 
 using namespace std; 
 
-/* bool compare( const Disciplina* &a, const Disciplina* &b ) {
-    return a->nivelDificuldade < b->nivelDificuldade; 
-} */
+
+bool compare( const Disciplina &a, const Disciplina &b ) {
+    return a.nivelDificuldade < a.nivelDificuldade; 
+}
 
 int main () {
     
@@ -39,7 +38,6 @@ int main () {
         if (g == 1) cha = CHM - CHG;  
         else if ( c == 1 ) cha = CHM - CHC;
         else cha = CHM; 
-
         professores.push_back( new Professor(nome, i, c, g, cha) ); 
         
     }
@@ -64,7 +62,6 @@ int main () {
     } */
 
     sort(disciplinas.begin(), disciplinas.end()); 
-
     for (int i = 0; i < disciplinas.size(); i++) {
         cout << disciplinas[i]->getDificuldade() << " " << disciplinas[i]->getNome() << endl; 
     }
