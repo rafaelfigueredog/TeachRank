@@ -2,40 +2,39 @@ package br.edu.ifpb.domain;
 
 public class Disciplina {
 
+    private String nome;
     private Integer codigo;
-    private Integer cargaHoraria;
     private Integer creditos;
-    private Integer periodo;
     private Integer numAlunos;
-    private Integer numPrerequisitos;
-    private Integer indeceReprovacao;
-    private Integer nivelDificuldade;
+    private Integer indiceReprovacao;
+    private double cargaDeTrabalho;
 
-    public Disciplina(Integer codigo, Integer cargaHoraria, Integer creditos, Integer periodo, Integer numAlunos, Integer numPrerequisitos, Integer indeceReprovacao, Integer nivelDificuldade) {
+    public Disciplina(String nome, Integer codigo, Integer creditos, Integer numAlunos, Integer indiceReprovacao) {
+        this.nome = nome;
         this.codigo = codigo;
-        this.cargaHoraria = cargaHoraria;
         this.creditos = creditos;
-        this.periodo = periodo;
         this.numAlunos = numAlunos;
-        this.numPrerequisitos = numPrerequisitos;
-        this.indeceReprovacao = indeceReprovacao;
-        this.nivelDificuldade = nivelDificuldade;
+        this.indiceReprovacao = indiceReprovacao;
+        setCargaTrabalho(creditos, numAlunos, indiceReprovacao);
     }
 
+    public void setCargaTrabalho(Integer C, Integer NA, Integer IR) {
+        this.cargaDeTrabalho = (double) (C * 33 + NA * 33 + IR * 33) / 100;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getNome() {
+        return nome;
+    }
     public Integer getCodigo() {
         return codigo;
     }
 
     public void setCodigo(Integer codigo) {
         this.codigo = codigo;
-    }
-
-    public Integer getCargaHoraria() {
-        return cargaHoraria;
-    }
-
-    public void setCargaHoraria(Integer cargaHoraria) {
-        this.cargaHoraria = cargaHoraria;
     }
 
     public Integer getCreditos() {
@@ -46,14 +45,6 @@ public class Disciplina {
         this.creditos = creditos;
     }
 
-    public Integer getPeriodo() {
-        return periodo;
-    }
-
-    public void setPeriodo(Integer periodo) {
-        this.periodo = periodo;
-    }
-
     public Integer getNumAlunos() {
         return numAlunos;
     }
@@ -62,27 +53,15 @@ public class Disciplina {
         this.numAlunos = numAlunos;
     }
 
-    public Integer getNumPrerequisitos() {
-        return numPrerequisitos;
-    }
-
-    public void setNumPrerequisitos(Integer numPrerequisitos) {
-        this.numPrerequisitos = numPrerequisitos;
-    }
-
     public Integer getIndeceReprovacao() {
-        return indeceReprovacao;
+        return indiceReprovacao;
     }
 
     public void setIndeceReprovacao(Integer indeceReprovacao) {
-        this.indeceReprovacao = indeceReprovacao;
+        this.indiceReprovacao = indeceReprovacao;
     }
 
-    public Integer getNivelDificuldade() {
-        return nivelDificuldade;
-    }
-
-    public void setNivelDificuldade(Integer nivelDificuldade) {
-        this.nivelDificuldade = nivelDificuldade;
+    public double getCargaDeTrabalho() {
+        return cargaDeTrabalho;
     }
 }

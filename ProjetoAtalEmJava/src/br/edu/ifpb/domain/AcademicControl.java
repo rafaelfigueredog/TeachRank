@@ -12,5 +12,7 @@ public class AcademicControl {
         this.controle = new HashMap<Integer, HashMap<Integer, Integer>>();
     }
 
-
+    public HashMap getControle(){
+        return controle;
+    }
 }
