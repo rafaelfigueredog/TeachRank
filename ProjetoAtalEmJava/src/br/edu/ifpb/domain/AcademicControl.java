@@ -1,5 +1,6 @@
 package br.edu.ifpb.domain;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -10,7 +11,8 @@ public class AcademicControl {
     private Integer cHCordenacao;
     private ArrayList<Professor> professors;
     private ArrayList<Disciplina> disciplinas;
-    private int[][] matriz;
+    private HashMap<Professor, ArrayList<Disciplina>> gestaoDeEnsino;
+    // private int[][] matriz;
 
     public AcademicControl(Integer cHMax, Integer cHGestao, Integer cHCordenacao) {
         this.cHMax = cHMax;
@@ -18,6 +20,7 @@ public class AcademicControl {
         this.cHCordenacao = cHCordenacao;
         this.professors = new ArrayList<Professor>();
         this.disciplinas = new ArrayList<Disciplina>();
+        this.gestaoDeEnsino = new HashMap<Professor, ArrayList<Disciplina>>();
     }
 
     public void addProfessor(Professor professor) {
@@ -34,6 +37,7 @@ public class AcademicControl {
     public ArrayList<Disciplina> getDisciplinas() {
         return disciplinas;
     }
+
 
     public void defineCargaHoraria() {
         Professor professor;
@@ -59,12 +63,18 @@ public class AcademicControl {
         }
     }
 
+    public void alocarDiciplinas(int P, int D) {
+        PriorityQueue<Professor> professorPQ = new PriorityQueue<Professor>();
+        PriorityQueue<Disciplina> DisciplinaPQ; new PriorityQueue<Disciplina>();
+    }
+
+    /*
     private void swap( int i, int j, int k) {
         int aux = matriz[k][i];
         matriz[k][i] = matriz[k][j];
         matriz[k][j] = aux;
     }
-    /*
+
     private void permutation(int l, int h, int P) {
         if (l == h) {
             show(matriz, P+1, h+1);
@@ -82,7 +92,7 @@ public class AcademicControl {
             permutation(0,D-1, p);
         }                
     }
-    */
+
     private void show(int[][] matrix, int P, int D) {
         for (int i = 0; i < P; i++) {
             for (int j = 0; j < D; j++) {
@@ -92,13 +102,11 @@ public class AcademicControl {
         }
         System.out.println();
     }
-    /*
+
     public void alocarDisciplinas() {
         int P = professors.size();
         int D = disciplinas.size();
-
         matriz = new int[P][D];
-
         Professor professor;
         for (int i = 0; i < professors.size(); i++) {
             professor = professors.get(i);
@@ -106,19 +114,11 @@ public class AcademicControl {
                 matriz[i][j] = professor.getExperience().get(j);
             }
         }
-
         show(matriz, P, D);
         permutationsHelperFunction(P, D);
-
     }
     */
 
-    public void alocarDiciplinas(int P, int D) {
 
-        PriorityQueue<Professor> professorPQ = new PriorityQueue<Professor>();
-        PriorityQueue<Disciplina> DisciplinaPQ; new PriorityQueue<Disciplina>()
-
-
-    }
 
 }
