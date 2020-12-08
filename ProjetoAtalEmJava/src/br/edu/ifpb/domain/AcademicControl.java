@@ -18,4 +18,11 @@ public class AcademicControl {
         this.disciplinas.add(disciplina);
     }
 
+    public ArrayList<Professor> getProfessors() {
+        return professors;
+    }
+
+    public ArrayList<Disciplina> getDisciplinas() {
+        return disciplinas;
+    }
 }

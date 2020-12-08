@@ -1,29 +1,32 @@
 package br.edu.ifpb.domain;
 
+import java.util.ArrayList;
+
 public class Professor {
-    private String matricula; 
-    private String nome;
-    private Integer cargaHorariaMax;
-    private Boolean cargaHoraria;
+
+    private String  nome;
+    private Integer matricula;
     private Boolean gestor;
     private Boolean cordenador;
+    private Integer cargaHoraria;
+    private ArrayList<Integer> experience;
 
-    public Professor(String matricula, String nome, Integer cargaHorariaMax, Boolean cargaHoraria, Boolean gestor, Boolean cordenador) {
+    public ArrayList<Integer> getExperience() {
+        return experience;
+    }
+
+    public void setExperience(ArrayList<Integer> experience) {
+        this.experience = experience;
+    }
+
+    public Professor(Integer matricula, String nome, Boolean gestor, Boolean cordenador, int maxCH) {
         this.matricula = matricula;
         this.nome = nome;
-        this.cargaHorariaMax = cargaHorariaMax;
-        this.cargaHoraria = cargaHoraria;
         this.gestor = gestor;
         this.cordenador = cordenador;
+        setCargaHoraria(maxCH);
     }
 
-    public String getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
 
     public String getNome() {
         return nome;
@@ -33,20 +36,22 @@ public class Professor {
         this.nome = nome;
     }
 
-    public Integer getCargaHorariaMax() {
-        return cargaHorariaMax;
+    private void setCargaHoraria(int cargaHorariaMax) {
+        if (!cordenador && !gestor ) {
+            this.cargaHoraria = cargaHorariaMax;
+        } else if ( cordenador && !gestor ) {
+            this.cargaHoraria = cargaHorariaMax - 8;
+        } else {
+            this.cargaHoraria = 0;
+        }
     }
 
-    public void setCargaHorariaMax(Integer cargaHorariaMax) {
-        this.cargaHorariaMax = cargaHorariaMax;
+    public Integer getMatricula() {
+        return matricula;
     }
 
-    public Boolean getCargaHoraria() {
+    public Integer getCargaHoraria() {
         return cargaHoraria;
-    }
-
-    public void setCargaHoraria(Boolean cargaHoraria) {
-        this.cargaHoraria = cargaHoraria;
     }
 
     public Boolean getGestor() {
@@ -63,5 +68,10 @@ public class Professor {
 
     public void setCordenador(Boolean cordenador) {
         this.cordenador = cordenador;
+    }
+
+    @Override
+    public String toString() {
+        return this.nome;
     }
 }

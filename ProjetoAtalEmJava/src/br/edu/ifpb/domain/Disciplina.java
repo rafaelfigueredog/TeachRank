@@ -65,5 +65,9 @@ public class Disciplina {
         return cargaDeTrabalho;
     }
 
-    
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }
