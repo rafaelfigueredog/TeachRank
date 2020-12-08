@@ -5,7 +5,13 @@ import br.edu.ifpb.domain.*;
 
 public class Main {
 
-
+    private static boolean convertToBoolean(String value) {
+        boolean returnValue = false;
+        if ("1".equalsIgnoreCase(value) || "yes".equalsIgnoreCase(value) ||
+                "y".equalsIgnoreCase(value) || "S".equalsIgnoreCase(value))
+            returnValue = true;
+        return returnValue;
+    }
 
     public static void main(String[] args) {
 
@@ -13,7 +19,7 @@ public class Main {
         int maxCH = 20; // cargahoraria maxima configurável.
 
         Scanner input = new Scanner(System.in);
-        AcademicControl aControl = new AcademicControl();
+        AcademicControl aControl = new AcademicControl(18, 8, 8 );
 
         D = Integer.parseInt( input.next() );
         P = Integer.parseInt( input.next() );
@@ -31,27 +37,21 @@ public class Main {
         Professor professor = null;
         for (int i = 0; i < P; i++) {
             String nome = input.next();
-            Boolean g = Boolean.parseBoolean(input.next());
-            Boolean c = Boolean.parseBoolean(input.next());
+            boolean g = convertToBoolean(input.next());
+            boolean c = convertToBoolean(input.next());
             experience = new ArrayList<Integer>();
             for (int j = 0; j < D; j++) {
                 experience.add( Integer.parseInt( input.next() ) );
             }
-            professor = new Professor(i, nome, g, c, maxCH);
+            professor = new Professor(i, nome, g, c);
             professor.setExperience(experience);
             aControl.addProfessor(professor);
         }
 
-
-        for (Professor p :
-                aControl.getProfessors()) {
-            System.out.println(p.getNome() + "\t" + p.getCargaHoraria());
-        }
-
-        for (Disciplina d :
-                aControl.getDisciplinas()) {
-            System.out.println(d.getNome() + "\t" + d.getCargaDeTrabalho());
-        }
+        aControl.defineCargaHoraria();
+        aControl.alocarDisciplinas();
 
     }
+
+
 }

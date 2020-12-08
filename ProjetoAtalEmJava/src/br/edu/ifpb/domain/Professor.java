@@ -5,11 +5,12 @@ import java.util.ArrayList;
 public class Professor {
 
     private String  nome;
-    private Integer matricula;
-    private Boolean gestor;
-    private Boolean cordenador;
-    private Integer cargaHoraria;
+    private int matricula;
+    private boolean gestor;
+    private boolean cordenador;
+    private int cargaHoraria;
     private ArrayList<Integer> experience;
+
 
     public ArrayList<Integer> getExperience() {
         return experience;
@@ -19,12 +20,15 @@ public class Professor {
         this.experience = experience;
     }
 
-    public Professor(Integer matricula, String nome, Boolean gestor, Boolean cordenador, int maxCH) {
+    public Professor(Integer matricula, String nome, Boolean gestor, Boolean cordenador) {
         this.matricula = matricula;
         this.nome = nome;
         this.gestor = gestor;
         this.cordenador = cordenador;
-        setCargaHoraria(maxCH);
+    }
+
+    public void setCargaHoraria(Integer cargaHoraria) {
+        this.cargaHoraria = cargaHoraria;
     }
 
 
@@ -36,38 +40,36 @@ public class Professor {
         this.nome = nome;
     }
 
-    private void setCargaHoraria(int cargaHorariaMax) {
-        if (!cordenador && !gestor ) {
-            this.cargaHoraria = cargaHorariaMax;
-        } else if ( cordenador && !gestor ) {
-            this.cargaHoraria = cargaHorariaMax - 8;
-        } else {
-            this.cargaHoraria = 0;
-        }
-    }
-
-    public Integer getMatricula() {
+    public int getMatricula() {
         return matricula;
     }
 
-    public Integer getCargaHoraria() {
-        return cargaHoraria;
+    public void setMatricula(int matricula) {
+        this.matricula = matricula;
     }
 
-    public Boolean getGestor() {
+    public boolean isGestor() {
         return gestor;
     }
 
-    public void setGestor(Boolean gestor) {
+    public void setGestor(boolean gestor) {
         this.gestor = gestor;
     }
 
-    public Boolean getCordenador() {
+    public boolean isCordenador() {
         return cordenador;
     }
 
-    public void setCordenador(Boolean cordenador) {
+    public void setCordenador(boolean cordenador) {
         this.cordenador = cordenador;
+    }
+
+    public int getCargaHoraria() {
+        return cargaHoraria;
+    }
+
+    public void setCargaHoraria(int cargaHoraria) {
+        this.cargaHoraria = cargaHoraria;
     }
 
     @Override
