@@ -15,10 +15,7 @@ public class AcademicControl {
         this.professors.add(professor);
     }
     public void addDisciplina(Disciplina disciplina) {
-        this.disciplinas.add(disciplina)
+        this.disciplinas.add(disciplina);
     }
-
-
-
 
 }

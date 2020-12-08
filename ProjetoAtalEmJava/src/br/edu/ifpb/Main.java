@@ -1,12 +1,12 @@
 package br.edu.ifpb;
+import java.io.IOException;
+import java.util.Vector;
+import java.util.Scanner;
 import br.edu.ifpb.domain.*;
+
 public class Main {
 
-    public static void main(String[] args) {
+    private static Scanner input = new Scanner(System.in);
+    
 
-        AcademicControl academicControl = new AcademicControl();
-
-        Professor professor = new Professor("123", )
-
-    }
 }

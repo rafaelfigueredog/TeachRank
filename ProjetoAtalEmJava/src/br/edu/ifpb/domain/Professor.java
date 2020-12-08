@@ -1,7 +1,7 @@
 package br.edu.ifpb.domain;
 
 public class Professor {
-    private String matricula; // matricula
+    private String matricula; 
     private String nome;
     private Integer cargaHorariaMax;
     private Boolean cargaHoraria;
