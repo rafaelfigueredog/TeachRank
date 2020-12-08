@@ -1,16 +1,24 @@
 package br.edu.ifpb.domain;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class AcademicControl {
 
-    // HashMap1: K: MatriculaProfessor V: HashMap2
-    // HashMap2: K: ID da disciplina V: Competencia
-
-    private HashMap controle;
+    private ArrayList<Professor> professors;
+    private ArrayList<Disciplina> disciplinas;
 
     public AcademicControl() {
-        this.controle = new HashMap<Integer, HashMap<Integer, Integer>>();
+        this.disciplinas = new ArrayList<Disciplina>();
+        this.professors = new ArrayList<Professor>();
     }
+
+    public void addProfessor(Professor professor) {
+        this.professors.add(professor);
+    }
+    public void addDisciplina(Disciplina disciplina) {
+        this.disciplinas.add(disciplina)
+    }
+
+
 
 
 }

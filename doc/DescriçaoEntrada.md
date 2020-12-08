@@ -11,12 +11,12 @@ CHM CHG CHC     CHC < CHG <= CHM
 // segue N linhas com os dados do professor separados por espaço 
 
 N = 5
-Mat     Nome      Gestor    Cordenador      
-1       George      0           0
-2       Ruan        1           0
-3       Paulo       0           1
-4       Tamila      0           0
-5       Juliana     0           0
+Mat     Nome      Gestor    Cordenador      niveldeaptidão     
+1       George      0           0           {}           
+2       Ruan        1           0           {}
+3       Paulo       0           1           {}
+4       Tamila      0           0           {}
+5       Juliana     0           0           {}
 
 
 D = 10

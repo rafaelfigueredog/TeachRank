@@ -6,5 +6,7 @@ public class Main {
 
         AcademicControl academicControl = new AcademicControl();
 
+        Professor professor = new Professor("123", )
+
     }
 }
