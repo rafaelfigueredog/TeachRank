@@ -19,10 +19,9 @@ public class Main {
         int maxCH = 20; // cargahoraria maxima configurável.
 
         Scanner input = new Scanner(System.in);
-        AcademicControl aControl = new AcademicControl(18, 8, 8 );
-
         D = Integer.parseInt( input.next() );
         P = Integer.parseInt( input.next() );
+        AcademicControl aControl = new AcademicControl(18, 8, 8,  D, P );
 
 
         for (int i = 0; i < D; i++) {
@@ -49,7 +48,7 @@ public class Main {
         }
 
         aControl.defineCargaHoraria();
-        aControl.alocarDisciplinas();
+        aControl.showMatch();
 
     }
 

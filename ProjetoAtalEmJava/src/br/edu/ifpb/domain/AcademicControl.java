@@ -9,22 +9,35 @@ public class AcademicControl {
     private Integer cHMax;
     private Integer cHGestao;
     private Integer cHCordenacao;
+    private Integer P; // quantidade de professores;
+    private Integer D; // quantidade de disciplinas;
     private ArrayList<Professor> professors;
     private ArrayList<Disciplina> disciplinas;
     private HashMap<Professor, ArrayList<Disciplina>> gestaoDeEnsino;
+    private ArrayList<ArrayList<Integer>> match;
     // private int[][] matriz;
 
-    public AcademicControl(Integer cHMax, Integer cHGestao, Integer cHCordenacao) {
+    public AcademicControl(Integer cHMax, Integer cHGestao,  Integer cHCordenacao, int D, int P) {
         this.cHMax = cHMax;
         this.cHGestao = cHGestao;
         this.cHCordenacao = cHCordenacao;
+        this.P = P;
+        this.D = D;
         this.professors = new ArrayList<Professor>();
         this.disciplinas = new ArrayList<Disciplina>();
         this.gestaoDeEnsino = new HashMap<Professor, ArrayList<Disciplina>>();
+        this.match = new ArrayList<ArrayList<Integer>>(D);
+        for (int i = 0; i < D; i++)
+            match.add(new ArrayList<Integer>());
     }
 
     public void addProfessor(Professor professor) {
         this.professors.add(professor);
+        for ( int i = 0; i < professor.getExperience().size(); i++) {
+            if (professor.getExperience().get(i) > 3 ) {
+                match.get(i).add(professor.getMatricula());
+            }
+        }
     }
     public void addDisciplina(Disciplina disciplina) {
         this.disciplinas.add(disciplina);
@@ -33,9 +46,18 @@ public class AcademicControl {
     public ArrayList<Professor> getProfessors() {
         return professors;
     }
-
     public ArrayList<Disciplina> getDisciplinas() {
         return disciplinas;
+    }
+
+    public void showMatch() {
+        for (int i = 0; i < match.size(); i++) {
+            System.out.printf("%s: ",  disciplinas.get(i).getNome());
+            for (int j = 0; j < match.get(i).size(); j++) {
+                System.out.print(professors.get(match.get(i).get(j)).getNome() + " ");
+            }
+            System.out.println();
+        }
     }
 
 
