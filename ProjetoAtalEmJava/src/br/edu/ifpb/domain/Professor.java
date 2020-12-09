@@ -9,6 +9,7 @@ public class Professor {
     private boolean gestor;
     private boolean cordenador;
     private int cargaHoraria;
+    private int cargaDeTrabalho;
     private ArrayList<Integer> experience;
 
 
@@ -25,12 +26,20 @@ public class Professor {
         this.nome = nome;
         this.gestor = gestor;
         this.cordenador = cordenador;
+        this.cargaDeTrabalho = 0;
+    }
+
+    public int getCargaDeTrabalho() {
+        return cargaDeTrabalho;
+    }
+
+    public void setCargaDeTrabalho(int cargaDeTrabalho) {
+        this.cargaDeTrabalho = cargaDeTrabalho;
     }
 
     public void setCargaHoraria(Integer cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
     }
-
 
     public String getNome() {
         return nome;

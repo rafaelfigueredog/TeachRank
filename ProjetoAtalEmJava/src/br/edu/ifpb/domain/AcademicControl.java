@@ -1,8 +1,10 @@
 package br.edu.ifpb.domain;
+import javafx.util.Pair;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.PriorityQueue;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.List;
 
 public class AcademicControl {
 
@@ -15,7 +17,8 @@ public class AcademicControl {
     private ArrayList<Disciplina> disciplinas;
     private HashMap<Professor, ArrayList<Disciplina>> gestaoDeEnsino;
     private ArrayList<ArrayList<Integer>> match;
-    // private int[][] matriz;
+    private ArrayList<Pair<Integer, Integer>> PD; // prioridade das disciplinas
+
 
     public AcademicControl(Integer cHMax, Integer cHGestao,  Integer cHCordenacao, int D, int P) {
         this.cHMax = cHMax;
@@ -27,15 +30,20 @@ public class AcademicControl {
         this.disciplinas = new ArrayList<Disciplina>();
         this.gestaoDeEnsino = new HashMap<Professor, ArrayList<Disciplina>>();
         this.match = new ArrayList<ArrayList<Integer>>(D);
-        for (int i = 0; i < D; i++)
-            match.add(new ArrayList<Integer>());
+        this.PD = new ArrayList<Pair<Integer, Integer>>(D);
+
+        for (int i = 0; i < D; i++) {
+            PD.add(new Pair<>(i, 0));
+        }
+
     }
 
     public void addProfessor(Professor professor) {
         this.professors.add(professor);
-        for ( int i = 0; i < professor.getExperience().size(); i++) {
+        for (int i = 0; i < professor.getExperience().size(); i++) {
             if (professor.getExperience().get(i) > 3 ) {
                 match.get(i).add(professor.getMatricula());
+                PD.set(i, new Pair<>(PD.get(i).getKey(), PD.get(i).getValue()+1));
             }
         }
     }
@@ -50,15 +58,13 @@ public class AcademicControl {
         return disciplinas;
     }
 
-    public void showMatch() {
-        for (int i = 0; i < match.size(); i++) {
-            System.out.printf("%s: ",  disciplinas.get(i).getNome());
-            for (int j = 0; j < match.get(i).size(); j++) {
-                System.out.print(professors.get(match.get(i).get(j)).getNome() + " ");
-            }
-            System.out.println();
-        }
+    public void vizualizarProfessoresAptosPorDisciplina() {
+        List<Pair<Integer, Integer>> sortPD =
+        Collections.sort(sortPD);
+
+
     }
+
 
 
     public void defineCargaHoraria() {
@@ -81,65 +87,15 @@ public class AcademicControl {
 
 
             professors.set(i, professor);
-
+            System.out.println(professors.get(i).getCargaHoraria());
         }
     }
 
     public void alocarDiciplinas(int P, int D) {
-        PriorityQueue<Professor> professorPQ = new PriorityQueue<Professor>();
-        PriorityQueue<Disciplina> DisciplinaPQ; new PriorityQueue<Disciplina>();
+
     }
 
-    /*
-    private void swap( int i, int j, int k) {
-        int aux = matriz[k][i];
-        matriz[k][i] = matriz[k][j];
-        matriz[k][j] = aux;
-    }
 
-    private void permutation(int l, int h, int P) {
-        if (l == h) {
-            show(matriz, P+1, h+1);
-        } else {
-            for (int i = l; i <= h; i++) {
-                swap(i, l, P);
-                permutation(l+1, h, P);
-                swap(i, l, P);
-            }
-        }
-    }
-
-    private void permutationsHelperFunction(int P, int D) {
-        for (int p = 0; p < P; p++) {
-            permutation(0,D-1, p);
-        }                
-    }
-
-    private void show(int[][] matrix, int P, int D) {
-        for (int i = 0; i < P; i++) {
-            for (int j = 0; j < D; j++) {
-                System.out.printf("%d ", matrix[i][j]);
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
-
-    public void alocarDisciplinas() {
-        int P = professors.size();
-        int D = disciplinas.size();
-        matriz = new int[P][D];
-        Professor professor;
-        for (int i = 0; i < professors.size(); i++) {
-            professor = professors.get(i);
-            for (int j = 0; j < professor.getExperience().size(); j++) {
-                matriz[i][j] = professor.getExperience().get(j);
-            }
-        }
-        show(matriz, P, D);
-        permutationsHelperFunction(P, D);
-    }
-    */
 
 
 

@@ -4,12 +4,12 @@ public class Disciplina {
 
     private String  nome;
     private Integer codigo;
-    private Integer creditos;
-    private Integer numAlunos;
-    private Integer indiceReprovacao;
-    private Double  cargaDeTrabalho;
+    private int creditos;
+    private int numAlunos;
+    private int indiceReprovacao;
+    private double  cargaDeTrabalho;
 
-    public Disciplina(String nome, Integer codigo, Integer creditos, Integer numAlunos, Integer indiceReprovacao) {
+    public Disciplina(String nome, Integer codigo, int creditos, int numAlunos, int indiceReprovacao) {
         this.nome = nome;
         this.codigo = codigo;
         this.creditos = creditos;
@@ -61,7 +61,7 @@ public class Disciplina {
         this.indiceReprovacao = indeceReprovacao;
     }
 
-    public Double getCargaDeTrabalho() {
+    public double getCargaDeTrabalho() {
         return cargaDeTrabalho;
     }
 

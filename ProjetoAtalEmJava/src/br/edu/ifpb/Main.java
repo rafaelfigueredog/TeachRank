@@ -48,7 +48,7 @@ public class Main {
         }
 
         aControl.defineCargaHoraria();
-        aControl.showMatch();
+        aControl.alocarDiciplinas(P, D);
 
     }
 

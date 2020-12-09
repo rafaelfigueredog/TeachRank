@@ -1,9 +1,13 @@
 package br.edu.ifpb.domain;
 
-public class DisciplinaComparator implements Comparable<Disciplina> {
+import java.util.Comparator;
+
+public class DisciplinaComparator implements Comparator<Disciplina> {
 
     @Override
-    public int compareTo(Disciplina disciplina) {
-        return 0;
+    public int compare(Disciplina disciplina, Disciplina other) {
+        if (disciplina.getCargaDeTrabalho() == other.getCargaDeTrabalho())
+            return 0;
+        return disciplina.getCargaDeTrabalho() > other.getCargaDeTrabalho()? -1: 1;
     }
 }
