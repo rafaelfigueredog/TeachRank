@@ -16,12 +16,16 @@ public class Main {
     public static void main(String[] args) {
 
         int P, D;
-        int maxCH = 20; // cargahoraria maxima configurável.
-
+        int CHM, CHC, CHG;
         Scanner input = new Scanner(System.in);
+
         D = Integer.parseInt( input.next() );
         P = Integer.parseInt( input.next() );
-        AcademicControl aControl = new AcademicControl(18, 8, 8,  D, P );
+        CHM = Integer.parseInt( input.next() );
+        CHC = Integer.parseInt( input.next() );
+        CHG = Integer.parseInt( input.next() );
+
+        AcademicControl aControl = new AcademicControl(CHM, CHG, CHC,  D, P );
 
 
         for (int i = 0; i < D; i++) {
@@ -47,8 +51,11 @@ public class Main {
             aControl.addProfessor(professor);
         }
 
-        aControl.defineCargaHoraria();
-        aControl.alocarDiciplinas(P, D);
+        aControl.defineCargaHoraria(); // Define carga horária de acordo com cargo administrativo
+        aControl.contAptosPorDisciplina(); // Define conta o número de professores aptos e com carga horária disponível para cada disciplina
+        aControl.showPairs();
+        aControl.showMatch();
+        // aControl.alocarDiciplinas();
 
     }
 
