@@ -31,6 +31,14 @@ public class Professor {
         this.alunos = 0;
     }
 
+
+    public Professor(int matricula, ArrayList<Integer> experience) {
+        this.matricula = matricula;
+        this.experience = experience;
+        this.cargaDeTrabalho = 0;
+        this.alunos = 0;
+    }
+
     public double getCargaDeTrabalho() {
         return cargaDeTrabalho;
     }

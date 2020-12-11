@@ -65,7 +65,7 @@ public class AcademicControl {
     public void addProfessor(Professor professor) {
         this.professors.add(professor);
         for (int i = 0; i < professor.getExperience().size(); i++) {
-            if (professor.getExperience().get(i) > 3 ) {
+            if (professor.getExperience().get(i) >= 3 ) {
                 match.get(i).add( professor.getMatricula() );
             }
         }
@@ -118,6 +118,7 @@ public class AcademicControl {
                 THPD -= this.CHC;
                 Integer ch = this.CHM - this.CHC;
                 professor.setCargaHoraria(ch);
+                professor.setCargaDeTrabalho(20.0);
             }
 
             else if (professor.isGestor()) {
@@ -125,6 +126,7 @@ public class AcademicControl {
                 THPD -= this.CHG;
                 Integer ch = this.CHM - this.CHG;
                 professor.setCargaHoraria(ch);
+                professor.setCargaDeTrabalho(50.0);
             }
 
             else {
@@ -142,15 +144,12 @@ public class AcademicControl {
         System.out.println("\n\t-  Results -\t\n");
         ArrayList<Integer> arr;
         for(int i = 0; i < alocaçãoDeProfessores.size(); i++ ) {
-            System.out.printf("%s:\t\t\t", professors.get(i).getNome());
-            System.out.printf("[CH: " + professors.get(i).getCargaHoraria() +    "]\t\t");
-            System.out.printf("[CT: %.2f]\t\t", professors.get(i).getCargaDeTrabalho());
-            System.out.printf("[A: %d]\t\t", professors.get(i).getAlunos());
-            System.out.printf("Disciplinas:\t\t[ ");
+            System.out.printf("Prof. %d:\n", professors.get(i).getMatricula());
+
             for (Integer id : arr = alocaçãoDeProfessores.get(i)) {
-                System.out.print(disciplinas.get(id) + " ");
+                System.out.println(disciplinas.get(id));
             }
-            System.out.println("]");
+            System.out.println();
         }
     }
 
@@ -191,7 +190,9 @@ public class AcademicControl {
                     // só entra na fila de prioridade se
                     // o professor tiver o mínimo de carga horária
                     if ( p.getCargaHoraria() >= disciplinas.get(pair.index).getCreditos())
-                        pqueueProfessor.add(p);
+                        if (p.getExperience().get(pair.index) >= 2)
+                            pqueueProfessor.add(p);
+
                 }
 
             } else {

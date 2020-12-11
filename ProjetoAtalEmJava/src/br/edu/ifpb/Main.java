@@ -29,7 +29,7 @@ public class Main {
 
 
         for (int i = 0; i < D; i++) {
-            String nome = input.next();
+            String nome = input.nextLine();
             int c  = Integer.parseInt( input.next() );
             int a  = Integer.parseInt( input.next() );
             int ir = Integer.parseInt( input.next() );
@@ -39,15 +39,14 @@ public class Main {
         ArrayList<Integer> experience;
         Professor professor = null;
         for (int i = 0; i < P; i++) {
-            String nome = input.next();
-            boolean g = convertToBoolean(input.next());
-            boolean c = convertToBoolean(input.next());
+            // String nome = input.next();
+            // boolean g = convertToBoolean(input.next());
+            // boolean c = convertToBoolean(input.next());
             experience = new ArrayList<Integer>();
             for (int j = 0; j < D; j++) {
                 experience.add( Integer.parseInt( input.next() ) );
             }
-            professor = new Professor(i, nome, g, c);
-            professor.setExperience(experience);
+            professor = new Professor(i, experience);
             aControl.addProfessor(professor);
         }
 
