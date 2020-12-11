@@ -53,9 +53,12 @@ public class Main {
 
         aControl.defineCargaHoraria(); // Define carga horária de acordo com cargo administrativo
         aControl.contAptosPorDisciplina(); // Define conta o número de professores aptos e com carga horária disponível para cada disciplina
-        aControl.showPairs();
+        // aControl.showPairs();
         aControl.showMatch();
-        // aControl.alocarDiciplinas();
+        aControl.alocarDiciplinas();
+        aControl.showResults();
+
+
 
     }
 

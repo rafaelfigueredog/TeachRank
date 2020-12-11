@@ -9,7 +9,8 @@ public class Professor {
     private boolean gestor;
     private boolean cordenador;
     private int cargaHoraria;
-    private int cargaDeTrabalho;
+    private double cargaDeTrabalho;
+    private int alunos;
     private ArrayList<Integer> experience;
 
 
@@ -27,13 +28,14 @@ public class Professor {
         this.gestor = gestor;
         this.cordenador = cordenador;
         this.cargaDeTrabalho = 0;
+        this.alunos = 0;
     }
 
-    public int getCargaDeTrabalho() {
+    public double getCargaDeTrabalho() {
         return cargaDeTrabalho;
     }
 
-    public void setCargaDeTrabalho(int cargaDeTrabalho) {
+    public void setCargaDeTrabalho(double cargaDeTrabalho) {
         this.cargaDeTrabalho = cargaDeTrabalho;
     }
 
@@ -84,5 +86,13 @@ public class Professor {
     @Override
     public String toString() {
         return this.nome;
+    }
+
+    public int getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(int alunos) {
+        this.alunos = alunos;
     }
 }

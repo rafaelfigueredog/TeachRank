@@ -2,20 +2,25 @@ package br.edu.ifpb.domain;
 import java.util.*;
 
 public class AcademicControl {
-
-    private Integer CHM;
-    private Integer CHG;
-    private Integer CHC;
-
+    // Variáveis de Controle
+    private Integer CHM; // Carga Horária Máxima
+    private Integer CHG; // Garga Horária Gestão
+    private Integer CHC; // Garga Horária Coordenaçao
+    private Integer THCA; // Total de horas nos usadas nos cargos administrativos
+    private Integer THPD; // Total de horas disponível para disciplinas
+    private Integer THND; // Total de horas total necessárias p/ Disciplinas
     private Integer P; // quantidade de professores;
     private Integer D; // quantidade de disciplinas;
-
     private ArrayList<Professor> professors;
     private ArrayList<Disciplina> disciplinas;
-    private HashMap<Professor, ArrayList<Disciplina>> gestaoDeEnsino;
+    private ArrayList<ArrayList<Integer>> alocaçãoDeProfessores;
     private ArrayList<ArrayList<Integer>> match;
     private PriorityQueue<Pair> PD; // prioridade das disciplinas
+    private ArrayList<Integer> disciplinaSemProfessores;
 
+    public ArrayList<ArrayList<Integer>> getAlocaçãoDeProfessores() {
+        return alocaçãoDeProfessores;
+    }
 
     public AcademicControl(Integer CHM, Integer CHG,  Integer CHC, int D, int P) {
         this.P = P;
@@ -25,16 +30,28 @@ public class AcademicControl {
         this.CHG = CHG; // Carga Horária Gestão
         this.CHC = CHC; // Carga Horária Cordenação
 
+        // Variáveis de Controle
+        THCA = 0;
+        THPD = 0;
+        THND = 0;
+
+
         this.professors = new ArrayList<Professor>();
         this.disciplinas = new ArrayList<Disciplina>();
-        this.gestaoDeEnsino = new HashMap<Professor, ArrayList<Disciplina>>();
+        this.alocaçãoDeProfessores = new ArrayList<ArrayList<Integer>>();
         this.match = new ArrayList<ArrayList<Integer>>(D);
         this.PD = new PriorityQueue<Pair>(D, new PairComparator());
+        this.disciplinaSemProfessores = new ArrayList<Integer>();
 
         for (int i = 0; i < D; i++) {
             match.add(new ArrayList<Integer>());
         }
 
+        for (int i = 0; i < P; i++) {
+            alocaçãoDeProfessores.add(new ArrayList<Integer>());
+        }
+
+        
     }
 
     public PriorityQueue<Pair> getPD() {
@@ -52,9 +69,11 @@ public class AcademicControl {
                 match.get(i).add( professor.getMatricula() );
             }
         }
+        this.THPD += 20;
     }
     public void addDisciplina(Disciplina disciplina) {
         this.disciplinas.add(disciplina);
+        THND += disciplina.getCreditos();
     }
 
     public ArrayList<Professor> getProfessors() {
@@ -95,11 +114,15 @@ public class AcademicControl {
         for ( int i = 0; i < professors.size(); i++ ) {
             professor = professors.get(i);
             if (professor.isCordenador()) {
+                THCA += this.CHC;
+                THPD -= this.CHC;
                 Integer ch = this.CHM - this.CHC;
                 professor.setCargaHoraria(ch);
             }
 
             else if (professor.isGestor()) {
+                THCA += this.CHG;
+                THPD -= this.CHG;
                 Integer ch = this.CHM - this.CHG;
                 professor.setCargaHoraria(ch);
             }
@@ -115,19 +138,109 @@ public class AcademicControl {
     }
 
 
+    public void showResults( ) {
+        System.out.println("\n\t-  Results -\t\n");
+        ArrayList<Integer> arr;
+        for(int i = 0; i < alocaçãoDeProfessores.size(); i++ ) {
+            System.out.printf("%s:\t\t\t", professors.get(i).getNome());
+            System.out.printf("[CH: " + professors.get(i).getCargaHoraria() +    "]\t\t");
+            System.out.printf("[CT: %.2f]\t\t", professors.get(i).getCargaDeTrabalho());
+            System.out.printf("[A: %d]\t\t", professors.get(i).getAlunos());
+            System.out.printf("Disciplinas:\t\t[ ");
+            for (Integer id : arr = alocaçãoDeProfessores.get(i)) {
+                System.out.print(disciplinas.get(id) + " ");
+            }
+            System.out.println("]");
+        }
+    }
+
+    private void showPriority(PriorityQueue<Professor> pqueue, int index) {
+        System.out.println("\n" + disciplinas.get(index));
+        while (!pqueue.isEmpty()) {
+            Professor p = pqueue.poll();
+            System.out.println(p.getNome() + "\t" + "C: " + p.getCargaHoraria() + "\t" + "E: "+ p.getExperience().get(index) + "\tT: " + p.getCargaDeTrabalho());
+        }
+        System.out.println();
+    }
+
     public void alocarDiciplinas() {
+        
 
-        PriorityQueue<Pair> pqueue = this->getPD();
+        if ( THPD == 0 )  {
+            System.out.println(" Impossível! Contrate professores. ");
+            return;
+        }
 
-        while (! pqueue.isEmpty() ) {
+        if ( THND > THPD ) {
+            System.out.println( "Vamos nos esforçar...\n " +
+                                "Mas será necessário contratar mais professores, \n" +
+                                "para cobrir todas as disciplinas.");
+        }
+
+
+        PriorityQueue<Pair> pqueue = this.getPD();
+        Pair pair;
+        PriorityQueue<Professor> pqueueProfessor;
+        while (!pqueue.isEmpty() || !(THPD >= THND) ) {
             // peguei a disciplina;
-            Pair pair = pqueue.poll();
+            pair = pqueue.poll();
+            pqueueProfessor = new PriorityQueue<Professor>(new ProfessorComparator(pair.index));
+            if ( pair.value == professors.size() + 1 ) {
+                for (int i = 0; i < match.get(pair.index).size(); i++) {
+                    Professor p = professors.get(match.get(pair.index).get(i));
+                    // só entra na fila de prioridade se
+                    // o professor tiver o mínimo de carga horária
+                    if ( p.getCargaHoraria() >= disciplinas.get(pair.index).getCreditos())
+                        pqueueProfessor.add(p);
+                }
 
-            for (int i = 0; i < match.get(pair.index).size(); i++) {
+            } else {
+                for (int i = 0; i < professors.size(); i++) {
+                    Professor p = professors.get(i);
+                    // só entra na fila de prioridade se
+                    // o professor tiver o mínimo de carga horária
+                    if ( p.getCargaHoraria() >= disciplinas.get(pair.index).getCreditos())
+                        pqueueProfessor.add(p);
+                }
+            }
+            // Na lista match nenhum professor tinha carga horária suficiente.
+            // A disciplina volta para o final da fila.
+            if (pqueueProfessor.isEmpty()) {
+                // se a pesquisa foi feita apenas na lista match;
+                if (pair.value != professors.size()) {
+                    pair.value  = professors.size() + 1;
+                    pqueue.add(pair);
+                }
+                else {
+                    disciplinaSemProfessores.add(pair.index); 
+                }
+            }
 
-                if ( )
+            else {
+                assert pqueueProfessor.peek() != null;
+                Professor p = pqueueProfessor.peek();
+
+                System.out.println("CH Professores: " + THPD);
+                System.out.println("CH Disciplinas Restantes: " + THND);
+                showPriority(pqueueProfessor, pair.index);
+
+                ArrayList<Integer> arr = alocaçãoDeProfessores.get(p.getMatricula());
+                arr.add(pair.index);
+                alocaçãoDeProfessores.set(p.getMatricula(), arr);
+
+                // ajustes no controle;
+                Disciplina d = this.disciplinas.get(pair.index);
+                p.setAlunos(p.getAlunos() + d.getNumAlunos());
+                p.setCargaHoraria((p.getCargaHoraria() - d.getCreditos()));
+                p.setCargaDeTrabalho((p.getCargaDeTrabalho() + d.getCargaDeTrabalho()));
+                professors.set(p.getMatricula(), p);
+
+
 
             }
+
+            pqueueProfessor.clear();
+
         }
     }
 
