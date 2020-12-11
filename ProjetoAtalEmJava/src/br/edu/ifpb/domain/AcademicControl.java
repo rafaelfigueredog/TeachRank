@@ -229,7 +229,10 @@ public class AcademicControl {
                 alocaçãoDeProfessores.set(p.getMatricula(), arr);
 
                 // ajustes no controle;
+
                 Disciplina d = this.disciplinas.get(pair.index);
+                this.THPD -= d.getCreditos();
+                this.THND -= d.getCreditos();
                 p.setAlunos(p.getAlunos() + d.getNumAlunos());
                 p.setCargaHoraria((p.getCargaHoraria() - d.getCreditos()));
                 p.setCargaDeTrabalho((p.getCargaDeTrabalho() + d.getCargaDeTrabalho()));
