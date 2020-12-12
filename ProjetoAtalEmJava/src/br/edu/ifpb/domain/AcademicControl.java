@@ -35,7 +35,6 @@ public class AcademicControl {
         THPD = 0;
         THND = 0;
 
-
         this.professors = new ArrayList<Professor>();
         this.disciplinas = new ArrayList<Disciplina>();
         this.alocaçãoDeProfessores = new ArrayList<ArrayList<Integer>>();
@@ -94,20 +93,12 @@ public class AcademicControl {
         for (int i = 0; i < match.size(); i++) {
             System.out.print(disciplinas.get(i) + ":\t");
             for (int j = 0; j < match.get(i).size(); j++) {
-                System.out.printf("(%s, %d)\t", professors.get(match.get(i).get(j)).getNome(), professors.get(match.get(i).get(j)).getExperience().get(i) );
+                System.out.printf("(%s, %d)\t", professors.get(match.get(i).get(j)).getMatricula(), professors.get(match.get(i).get(j)).getExperience().get(i) );
             }
             System.out.println();
         }
     }
 
-    public void showPairs() {
-        PriorityQueue<Pair> pquee = this.getPD();
-        while (!pquee.isEmpty()) {
-            System.out.println(pquee.peek());
-            pquee.poll();
-        }
-
-    }
 
     public void defineCargaHoraria() {
         Professor professor;
@@ -144,12 +135,20 @@ public class AcademicControl {
         System.out.println("\n\t-  Results -\t\n");
         ArrayList<Integer> arr;
         for(int i = 0; i < alocaçãoDeProfessores.size(); i++ ) {
-            System.out.printf("Prof. %d:\n", professors.get(i).getMatricula());
+            Professor p = professors.get(i);
+            System.out.printf("Prof. %d:\tCH: %d\tCT: %.2f\n", p.getMatricula(), p.getCargaHoraria(), p.getCargaDeTrabalho());
 
             for (Integer id : arr = alocaçãoDeProfessores.get(i)) {
-                System.out.println(disciplinas.get(id));
+                System.out.printf("A: %d\t\t%s\n", professors.get(i).getExperience().get(id),  disciplinas.get(id));
             }
             System.out.println();
+        }
+
+        if (!disciplinaSemProfessores.isEmpty()) {
+            System.out.println("\nAlgumas disciplinas em professores:\n");
+            for (Integer d: disciplinaSemProfessores) {
+                System.out.println(disciplinas.get(d));
+            }
         }
     }
 
@@ -157,7 +156,11 @@ public class AcademicControl {
         System.out.println("\n" + disciplinas.get(index));
         while (!pqueue.isEmpty()) {
             Professor p = pqueue.poll();
-            System.out.println(p.getNome() + "\t" + "C: " + p.getCargaHoraria() + "\t" + "E: "+ p.getExperience().get(index) + "\tT: " + p.getCargaDeTrabalho());
+            System.out.printf("Prof:\t%d\t\tCH:\t%d\t\tA:\t%d\t\tCT:\t%.2f\n",
+                    p.getMatricula(),
+                    p.getCargaHoraria(),
+                    p.getExperience().get(index),
+                    p.getCargaDeTrabalho());
         }
         System.out.println();
     }
@@ -246,6 +249,7 @@ public class AcademicControl {
             pqueueProfessor.clear();
 
         }
+
     }
 
 

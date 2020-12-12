@@ -1,4 +1,5 @@
 package br.edu.ifpb;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import br.edu.ifpb.domain.*;
@@ -13,22 +14,22 @@ public class Main {
         return returnValue;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         int P, D;
         int CHM, CHC, CHG;
         Scanner input = new Scanner(System.in);
 
-        D = Integer.parseInt( input.next() );
-        P = Integer.parseInt( input.next() );
-        CHM = Integer.parseInt( input.next() );
-        CHC = Integer.parseInt( input.next() );
-        CHG = Integer.parseInt( input.next() );
+        D = input.nextInt();
+        P = input.nextInt();
+        CHM = input.nextInt();
+        CHC = input.nextInt();
+        CHG = input.nextInt();
 
         AcademicControl aControl = new AcademicControl(CHM, CHG, CHC,  D, P );
 
-
         for (int i = 0; i < D; i++) {
+            input.nextLine(); // Proxima Linha
             String nome = input.nextLine();
             int c  = Integer.parseInt( input.next() );
             int a  = Integer.parseInt( input.next() );
@@ -52,7 +53,6 @@ public class Main {
 
         aControl.defineCargaHoraria(); // Define carga horária de acordo com cargo administrativo
         aControl.contAptosPorDisciplina(); // Define conta o número de professores aptos e com carga horária disponível para cada disciplina
-        // aControl.showPairs();
         aControl.showMatch();
         aControl.alocarDiciplinas();
         aControl.showResults();
