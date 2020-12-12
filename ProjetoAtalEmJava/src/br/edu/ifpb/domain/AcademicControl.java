@@ -13,10 +13,12 @@ public class AcademicControl {
     private Integer D; // quantidade de disciplinas;
     private ArrayList<Professor> professors;
     private ArrayList<Disciplina> disciplinas;
+
     private ArrayList<ArrayList<Integer>> alocaçãoDeProfessores;
     private ArrayList<ArrayList<Integer>> match;
     private PriorityQueue<Pair> PD; // prioridade das disciplinas
     private ArrayList<Integer> disciplinaSemProfessores;
+    boolean[] alocados;
 
     public ArrayList<ArrayList<Integer>> getAlocaçãoDeProfessores() {
         return alocaçãoDeProfessores;
@@ -41,6 +43,7 @@ public class AcademicControl {
         this.match = new ArrayList<ArrayList<Integer>>(D);
         this.PD = new PriorityQueue<Pair>(D, new PairComparator());
         this.disciplinaSemProfessores = new ArrayList<Integer>();
+        this.alocados = new boolean[D];
 
         for (int i = 0; i < D; i++) {
             match.add(new ArrayList<Integer>());
@@ -131,14 +134,13 @@ public class AcademicControl {
     }
 
 
-    public void showResults( ) {
+    public void showResults(ArrayList<ArrayList<Integer>> ans) {
         System.out.println("\n\t-  Results -\t\n");
         ArrayList<Integer> arr;
-        for(int i = 0; i < alocaçãoDeProfessores.size(); i++ ) {
+        for(int i = 0; i < ans.size(); i++ ) {
             Professor p = professors.get(i);
             System.out.printf("Prof. %d:\tCH: %d\tCT: %.2f\n", p.getMatricula(), p.getCargaHoraria(), p.getCargaDeTrabalho());
-
-            for (Integer id : arr = alocaçãoDeProfessores.get(i)) {
+            for (Integer id : arr = ans.get(i)) {
                 System.out.printf("A: %d\t\t%s\n", professors.get(i).getExperience().get(id),  disciplinas.get(id));
             }
             System.out.println();
@@ -252,7 +254,90 @@ public class AcademicControl {
 
     }
 
+    private void showMatriz(int[][] m, int D, int W) {
+        for (int i = 0; i < D; i++) {
+            for (int j = 0; j < W; j++) {
+                System.out.print(m[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
 
+    public ArrayList<Integer> getOptized(Professor p, ArrayList<Integer> naoAlocadas) {
+        if (p.getMatricula() == 1){
+            System.out.println("Debug Teste!");
+        }
+
+        int CHMP = p.getCargaHoraria()-2;
+        int d = naoAlocadas.size();
+        int[][] memo = new int[d+1][CHMP+1];
+        for (int i = 1; i <= d; i++) {
+            for (int c = 1; c <= CHMP; c++) {
+                if ( p.getExperience().get( naoAlocadas.get(i-1) ) < 3 || disciplinas.get( naoAlocadas.get(i-1) ).getCreditos() > c || this.alocados[i-1] ) {
+                    memo[i][c] = memo[i-1][c];
+                } else {
+                    int keep = memo[i-1][c];
+                    int get = memo[i-1][c - (disciplinas.get(naoAlocadas.get(i-1)).getCreditos())] + p.getExperience().get(i);
+                    memo[i][c] = Math.max(keep, get);
+                }
+            }
+        }
+
+        //showMatriz(memo, D+1, CHMP+1);
+        ArrayList<Integer> ans = new ArrayList<Integer>();
+        if (memo[d][CHMP] > 0) {
+            recover(p, memo, d, CHMP, ans, memo[d][CHMP], naoAlocadas);
+        }
+
+
+        return ans;
+    }
+    
+    private void recover(Professor p, int[][] memo, int d, int C, ArrayList<Integer> ans, int maxValue, ArrayList<Integer> naoAlocadas) {
+
+        while (true) {
+
+            if (maxValue == 0 || d <= 0 )
+                break;
+
+            if (maxValue == memo[d-1][C]) {
+                d = d-1;
+                continue;
+            }
+
+            ans.add(naoAlocadas.get(d-1));
+            maxValue -=  p.getExperience().get(d-1);
+
+            C -= disciplinas.get( naoAlocadas.get(d-1) ).getCreditos();
+
+            // Disciplina alocada
+            alocados[disciplinas.get(naoAlocadas.get(d-1)).getCodigo()] = true;
+
+            // Alualizar estado do professor
+            p = professors.get(p.getMatricula());
+            p.setCargaHoraria(p.getCargaHoraria() - disciplinas.get( naoAlocadas.get(d-1) ).getCreditos() );
+            p.setCargaDeTrabalho(p.getCargaDeTrabalho() + disciplinas.get( naoAlocadas.get(d-1) ).getCargaDeTrabalho());
+            professors.set(p.getMatricula(), p);
+
+            d = d - 1;
+        }
+    }
+
+    public ArrayList<ArrayList<Integer>> alocarDisciplinasM2() {
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+        for (int i = 0; i < P; i++) {
+            Professor p = professors.get(i);
+            ArrayList<Integer> naoAlocadas = new ArrayList<Integer>();
+            for (int j = 0; j < D; j++) {
+                if ( !alocados[j] ) {
+                    naoAlocadas.add(disciplinas.get(j).getCodigo());
+                }
+            }
+            ans.add( getOptized(p, naoAlocadas ) );
+            showResults(ans);
+        }
+        return ans;
+    }
 
 
 
