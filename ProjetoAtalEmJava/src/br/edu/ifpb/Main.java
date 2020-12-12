@@ -16,7 +16,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        int P, D;
+        int P, D, NC, ND;
         int CHM, CHC, CHG;
         Scanner input = new Scanner(System.in);
 
@@ -29,8 +29,7 @@ public class Main {
         AcademicControl aControl = new AcademicControl(CHM, CHG, CHC,  D, P );
 
         for (int i = 0; i < D; i++) {
-            input.nextLine(); // Proxima Linha
-            String nome = input.nextLine();
+            String nome = input.next();
             int c  = Integer.parseInt( input.next() );
             int a  = Integer.parseInt( input.next() );
             int ir = Integer.parseInt( input.next() );
@@ -41,8 +40,6 @@ public class Main {
         Professor professor = null;
         for (int i = 0; i < P; i++) {
             // String nome = input.next();
-            // boolean g = convertToBoolean(input.next());
-            // boolean c = convertToBoolean(input.next());
             experience = new ArrayList<Integer>();
             for (int j = 0; j < D; j++) {
                 experience.add( Integer.parseInt( input.next() ) );
@@ -51,14 +48,26 @@ public class Main {
             aControl.addProfessor(professor);
         }
 
+        NC = input.nextInt();
+        for (int i = 0; i < NC; i++) {
+            int index = input.nextInt();
+                index--;
+            aControl.setCoordenador(index);
+        }
+        ND = input.nextInt();
+        for (int i = 0; i < ND; i++) {
+            int index = input.nextInt();
+                index--;
+            aControl.setGestor(index);
+        }
 
 
         aControl.defineCargaHoraria(); // Define carga horária de acordo com cargo administrativo
         aControl.contAptosPorDisciplina(); // Define conta o número de professores aptos e com carga horária disponível para cada disciplina
         aControl.showMatch();
-        //aControl.alocarDiciplinas();
-        //aControl.showResults(aControl.getAlocaçãoDeProfessores());
-        aControl.showResults(aControl.alocarDisciplinasM2());
+        aControl.alocarDiciplinas();
+        aControl.showResults(aControl.getAlocaçãoDeProfessores());
+        // aControl.showResults(aControl.alocarDisciplinasM2());
 
 
 

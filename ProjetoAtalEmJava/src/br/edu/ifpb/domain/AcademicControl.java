@@ -185,11 +185,12 @@ public class AcademicControl {
         PriorityQueue<Pair> pqueue = this.getPD();
         Pair pair;
         PriorityQueue<Professor> pqueueProfessor;
+
         while (!pqueue.isEmpty() || !(THPD >= THND) ) {
             // peguei a disciplina;
             pair = pqueue.poll();
             pqueueProfessor = new PriorityQueue<Professor>(new ProfessorComparator(pair.index));
-            if ( pair.value == professors.size() + 1 ) {
+            if ( pair.value != professors.size() + 1 ) {
                 for (int i = 0; i < match.get(pair.index).size(); i++) {
                     Professor p = professors.get(match.get(pair.index).get(i));
                     // só entra na fila de prioridade se
@@ -321,6 +322,18 @@ public class AcademicControl {
 
             d = d - 1;
         }
+    }
+
+    public void setCoordenador(int index) {
+        Professor p = this.professors.get(index);
+        p.setCordenador(true);
+        this.professors.set(index, p);
+    }
+
+    public void setGestor(int index) {
+        Professor p = this.professors.get(index);
+        p.setGestor(true);
+        this.professors.set(index, p);
     }
 
     public ArrayList<ArrayList<Integer>> alocarDisciplinasM2() {

@@ -1,73 +1,39 @@
 34 12
 20 8 20
-Informatica Básica
-4 40 5
-Metodologia da P. Cientifica
-4 30 5
-Algoritmos I
-6 40 15
-Estrutura de Dados Python
-4 35 25
-Estrutura de Dados C
-4 35 20
-Orientação a Objetos Java
-8 32 20
-Orientação a Objetos C++
-8 32 25
-Programação III (Concorrente, Redes, Web)
-4 17 10
-Teoria dos Grafos
-4 30 5 
-Análise e Téc. de Algoritmos
-4 25 70
-Teoria da Computação
-4 40 50
-Sistemas Operacionais
-4 25 20 
-Redes de Computadores
-4 20 5
-Banco de Dados
-4 20 2
-Intel. Artificial
-4 15 10
-Análise e Projeto de Sistemas
-4 20 10
-Padrões de Projeto
-4 20 10
-Testes de Software
-4 15 3 
-Gerência de Projetos
-4 10 2
-Desenvolvimento Web
-4 30 5
-Lab. de Sistemas Abertos
-4 20 10
-Lab. Sistemas Operacionais
-4 20 20
-Arquitetura de Computadores
-4 40 2
-Adm. de Sistemas Oper. Abertos
-4 20 10
-Adm. de Sistemas Oper. Proprietários
-4 20 10
-Administração de Sistemas
-4 20 10
-Administração de Serviços
-4 20 10
-Estatística Aplicada
-4 20 5
-Métodos Numéricos
-4 10 1
-Sistemas Digitais I
-4 40 5
-Sistemas Digitais II
-4 35 10
-Projeto em Telemática
-4 5 1
-Projeto em Engenharia de Comp.
-4 5 1
-Tecnologia de Redes Locais
-4 30 4
+InformaticaBásica 4 40 5
+MetodologiaDaPesquisaCientifica 4 30 5
+AlgoritmosI 6 40 15
+EstruturaDeDadosPython 4 35 25
+EstruturaDeDadosC 4 35 20
+OrientaçãoAObjetosJava 8 32 20
+OrientaçãoAObjetosC++ 8 32 25
+ProgramaçãoIII(Concorrente,Redes,Web) 4 17 10
+TeoriaDosGrafos 4 30 5
+AnáliseETécDeAlgoritmos 4 25 70
+TeoriadaComputação 4 40 50
+SistemasOperacionais 4 25 20
+RedesDeComputadores 4 20 5
+BancoDeDados 4 20 2
+InteligenciaArtificial 4 15 10
+AnáliseEProjetoDeSistemas 4 20 10
+PadrõesDeProjeto 4 20 10
+TestesDeSoftware 4 15 3
+GerênciaDeProjetos 4 10 2
+DesenvolvimentoWeb 4 30 5
+LabDeSistemasAbertos 4 20 10
+LabSistemasOperacionais 4 20 20
+ArquiteturaDeComputadores 4 40 2
+AdmDeSistemasOperAbertos 4 20 10
+AdmDeSistemasOperProprietários 4 20 10
+AdministraçãoDeSistemas 4 20 10
+AdministraçãoDeServiços 4 20 10
+EstatísticaAplicada 4 20 5
+MétodosNuméricos 4 10 1
+SistemasDigitaisI 4 40 5
+SistemasDigitaisII 4 35 10
+ProjetoemTelemática 4 5 1
+ProjetoEmEngenhariaDeComp. 4 5 1
+TecnologiaDeRedesLocais 4 30 4
 5 4	5 3	2 5	2 2	3 3	2 3	2 2	2 4	5 4	4 2	3 2	1 3	2 2	1 1	1 1	1 1	2 1
 3 3	5 3	3 5	1 2	1 1	1 1	1 3	1 3	2 2	2 3	1 1	1 1	1 1	1 1	1 1	1 1	1 1
 2 2	5 4	5 5	1 4	1 1	1 1	1 2	1 2	4 4	1 4	4 1	1 2	1 1	1 1	1 1	1 2	2 1
@@ -80,3 +46,7 @@ Tecnologia de Redes Locais
 4 3	5 5	5 5	4 1	1 3	1 3	3 5	1 4	4 5	4 2	1 1	2 1	1 1	1 1	1 1	1 1	1 1
 4 1	4 3	3 2	2 2	1 2	1 1	2 2	2 2	1 2	1 1	1 2	2 1	3 2	1 1	1 2	1 1	1 1
 3 4	5 5	5 4	4 5	3 3	3 2	2 4	3 4	5 4	4 3	2 2	3 2	2 2	2 2	1 1	1 3	4 1
+1
+7
+1
+2
