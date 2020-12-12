@@ -147,7 +147,7 @@ public class AcademicControl {
         }
 
         if (!disciplinaSemProfessores.isEmpty()) {
-            System.out.println("\nAlgumas disciplinas em professores:\n");
+            System.out.println("\nAlgumas disciplinas estão sem professores:\n");
             for (Integer d: disciplinaSemProfessores) {
                 System.out.println(disciplinas.get(d));
             }
@@ -245,8 +245,6 @@ public class AcademicControl {
                 p.setCargaDeTrabalho((p.getCargaDeTrabalho() + d.getCargaDeTrabalho()));
                 professors.set(p.getMatricula(), p);
 
-
-
             }
 
             pqueueProfessor.clear();
@@ -265,6 +263,7 @@ public class AcademicControl {
     }
 
     public ArrayList<Integer> getOptized(Professor p, ArrayList<Integer> naoAlocadas) {
+
         if (p.getMatricula() == 1){
             System.out.println("Debug Teste!");
         }
@@ -274,11 +273,11 @@ public class AcademicControl {
         int[][] memo = new int[d+1][CHMP+1];
         for (int i = 1; i <= d; i++) {
             for (int c = 1; c <= CHMP; c++) {
-                if ( p.getExperience().get( naoAlocadas.get(i-1) ) < 3 || disciplinas.get( naoAlocadas.get(i-1) ).getCreditos() > c || this.alocados[i-1] ) {
+                if (disciplinas.get( naoAlocadas.get(i-1) ).getCreditos() > c) {
                     memo[i][c] = memo[i-1][c];
                 } else {
                     int keep = memo[i-1][c];
-                    int get = memo[i-1][c - (disciplinas.get(naoAlocadas.get(i-1)).getCreditos())] + p.getExperience().get(i);
+                    int get = memo[i-1][c - ( disciplinas.get( naoAlocadas.get(i-1)).getCreditos() )] + p.getExperience().get(i-1);
                     memo[i][c] = Math.max(keep, get);
                 }
             }
@@ -295,6 +294,9 @@ public class AcademicControl {
     }
     
     private void recover(Professor p, int[][] memo, int d, int C, ArrayList<Integer> ans, int maxValue, ArrayList<Integer> naoAlocadas) {
+        if (p.getMatricula() == 1){
+            System.out.println("Debug Teste!");
+        }
 
         while (true) {
 
@@ -308,18 +310,7 @@ public class AcademicControl {
 
             ans.add(naoAlocadas.get(d-1));
             maxValue -=  p.getExperience().get(d-1);
-
             C -= disciplinas.get( naoAlocadas.get(d-1) ).getCreditos();
-
-            // Disciplina alocada
-            alocados[disciplinas.get(naoAlocadas.get(d-1)).getCodigo()] = true;
-
-            // Alualizar estado do professor
-            p = professors.get(p.getMatricula());
-            p.setCargaHoraria(p.getCargaHoraria() - disciplinas.get( naoAlocadas.get(d-1) ).getCreditos() );
-            p.setCargaDeTrabalho(p.getCargaDeTrabalho() + disciplinas.get( naoAlocadas.get(d-1) ).getCargaDeTrabalho());
-            professors.set(p.getMatricula(), p);
-
             d = d - 1;
         }
     }
@@ -339,15 +330,39 @@ public class AcademicControl {
     public ArrayList<ArrayList<Integer>> alocarDisciplinasM2() {
         ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
         for (int i = 0; i < P; i++) {
+
             Professor p = professors.get(i);
+
+
+            if (p.getCargaHoraria() == 0) {
+                continue;
+            }
+
             ArrayList<Integer> naoAlocadas = new ArrayList<Integer>();
             for (int j = 0; j < D; j++) {
                 if ( !alocados[j] ) {
                     naoAlocadas.add(disciplinas.get(j).getCodigo());
                 }
             }
-            ans.add( getOptized(p, naoAlocadas ) );
-            showResults(ans);
+
+
+            ArrayList<Integer> discProf = getOptized(p, naoAlocadas );
+            ArrayList<Integer> aux = new ArrayList<Integer>();
+            for (Integer u : discProf ) {
+                if ( p.getExperience().get(u) >= 3 ) {
+                    // Atualiza os estado das disciplinas
+                    aux.add(u);
+                    alocados[u] = true;
+
+                    // Atualiza o estado dos professores.
+                    p = professors.get(p.getMatricula());
+                    p.setCargaHoraria(p.getCargaHoraria() - disciplinas.get( u ).getCreditos() );
+                    p.setCargaDeTrabalho(p.getCargaDeTrabalho() + disciplinas.get(u).getCargaDeTrabalho());
+                    professors.set(p.getMatricula(), p);
+
+                }
+            }
+            ans.add( aux );
         }
         return ans;
     }

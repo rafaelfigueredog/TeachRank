@@ -67,10 +67,9 @@ public class Main {
         aControl.showMatch();
         aControl.alocarDiciplinas();
         aControl.showResults(aControl.getAlocaçãoDeProfessores());
+
+        // Metodo 2;
         // aControl.showResults(aControl.alocarDisciplinasM2());
-
-
-
     }
 
 
