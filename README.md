@@ -1,24 +1,20 @@
-# ProjetoFinalATAL
+# TeachRank
 
+This repository contains notes, analysis, and a solution guide for the project of optimized and fair allocation of teachers to courses at IFPB. This project was proposed by the Analysis and Algorithm Techniques course, taught by Professor Ruan Delgado Gomes.
 
-Nesse repositório encontram-se notas, análise e roteiro de solução do projeto de Alocação otimizada e justa de professores para disciplinas do IFPB.  Esse projeto foi proposto pela disciplina Análise e técnica de algoritmos,  ministrada pelo professor Ruan Delgado Gomes. 
+## Requirements Overview
+According to the project description, we can highlight some points that should be present in the logic of the algorithm development:
 
-## Overview de Requisitos
+- Allocate the most qualified teachers for specific subjects.
+- Meet requirements for workload equalization.
+- Meet requirements regarding the maximum workload limit per teacher.
+- Coordinators and Directors have a different workload.
+- In the allocation, we should not consider only the workload as a factor of fairness.
+- Define metrics and formalize the objective function.
 
-De acordo com a descrição do projeto podemos destacar alguns pontos que devem estar presentes na lógica do desenvolvimento do algoritmo. 
+## Algorithm
+Our teacher allocation algorithm consists of using priority queue data structures to rank the teacher based on the aforementioned parameters, so that each ranking will be performed with the state of the teacher being altered.
 
-- Alocar os professores mais capacitados para os assuntos específicos
-- Atender a requisitos de equalização de trabalho
-- Atender requisitos com relação à limitação de carga horária máxima por professor. 
-- Coordenadores e Diretores possuem carga horária diferenciada.
-- Na alocação, não devemos considerar apenas a carga horária como fator de justica. 
-- Definir as métricas e formalizar a função objetivo
-
-## Algoritmo
-
-Nosso algoritmo de alocação de escolhas consiste no uso das estruturas de dados fila de prioridade para fazer o ranqueamento do professor com base nos parâmetros citados anteriormente de maneira, que cada ranqueamento será realizado com o estado do professor sendo alterado. 
-
-
-## Autores
+## Authors
 - Rafael Guimarães
 - Ramon Lino
